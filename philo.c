@@ -12,6 +12,17 @@
 
 #include "philo.h"
 
+
+print_fct(t_data *a, int x)
+{
+    if (x = 0)
+        printf("Philo %d id eating", *a->philos.id);
+    else if (x == 1)
+        printf("Philo %d id sleeping", *a->philos.id);
+    else if (x == 2)
+        printf("Philo %d id thinking", *a->philos.id);
+}
+
 void *thread_function(void *p)
 {
     static int j;
