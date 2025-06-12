@@ -1,20 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nbenhssi <nbenhssi@student.1337.ma>        #+#  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-04-19 18:16:39 by nbenhssi          #+#    #+#             */
-/*   Updated: 2025-04-19 18:16:39 by nbenhssi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #ifndef PHILO_H
 # define PHILO_H
 
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 
 // typedef struct data {
@@ -47,6 +38,8 @@ typedef struct s_philo
 	long long       last_meal;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
+	pthread_mutex_t mael;
+	pthread_mutex_t mael_count;
 	t_data          *data;
 } t_philo;
 
@@ -60,7 +53,7 @@ typedef struct s_data
 	int             stop;
 	long long       start_time;
 	t_philo         *philos;
-	pthread_t       *thread;
+	pthread_t       *threads;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print_mutex;
 } t_data;
@@ -70,5 +63,11 @@ typedef struct s_data
 int	ft_atoi(char *nptr);
 int init_philo(t_data *data);
 int init_data(t_data *a, char **argv, int argc);
+void free_data(t_data *data);
+void smart_sleep(long long duration, t_data *data);
+void print_status(t_data *data, int id, char *status);
+long long get_time_ms(void);
+int init_mutex(t_data *a);
+
 
 #endif
