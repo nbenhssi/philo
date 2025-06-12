@@ -8,7 +8,8 @@ RM = rm -f
 
 SRC = 	philo.c \
 		libft.c \
-		init.c
+		init.c \
+		utils.c
 
 OBJ	=$(SRC:.c=.o)
 
