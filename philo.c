@@ -42,10 +42,14 @@ void *thread_function(void *p)
         pthread_mutex_unlock(philo->left_fork);
         print_status(data, philo->id, "is sleeping");
         smart_sleep(data->tts, data);
-        print_status(data, philo->id, "is thinking");
+        // print_status(data, philo->id, "is thinking");
+        // usleep(500);
+        if (philo->data->nb_ph % 2 == 1)
+            ft_usleep((philo->data->tte * 2) - philo->data->tts, philo->data);
     }
     return(NULL);
 }
+
 
 void *monitor_routine(void *arg)
 {
