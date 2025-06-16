@@ -10,7 +10,7 @@ int init_data(t_data *a, char **argv, int argc)
     if (argc == 6)
     	a->n_o_t_e_ph_m_e = ft_atoi(argv[5]);
     a->stop = 0;
-	a->start_time = get_time_ms();//
+	a->start_time = get_time_ms();
 	a->philos = malloc(sizeof(t_philo) * a->nb_ph);
 	a->forks = malloc(sizeof(pthread_mutex_t) * a->nb_ph);
     a->threads = malloc(sizeof(pthread_t) * a->nb_ph);
@@ -27,19 +27,27 @@ int init_mutex(t_data *a)
     i = 0;
     if (pthread_mutex_init(&a->print_mutex, NULL) != 0)
         return (1);
-    if (pthread_mutex_init(&a->philos->mael_count, NULL) != 0)
+    if (pthread_mutex_init(&a->death_mutex, NULL) != 0)
         return (1);
-    if (pthread_mutex_init(&a->philos->mael, NULL) != 0)
-        return (1);
+    if (pthread_mutex_init(&a->stop_mutex, NULL) != 0)
+    return (1);
     while (i < a->nb_ph)
     {
         if (pthread_mutex_init(&a->forks[i], NULL) != 0)
             return (1);
         i++;
     }
+    i = 0;
+    while (i < a->nb_ph)
+    {
+        if (pthread_mutex_init(&a->philos[i].meal, NULL) != 0)
+            return (1);
+        if (pthread_mutex_init(&a->philos[i].meal_count, NULL) != 0)
+            return (1);
+        i++;
+    }
     return(0);
 }
-
 
 int init_philo(t_data *data)
 {
@@ -47,7 +55,7 @@ int init_philo(t_data *data)
     while (i < data->nb_ph)
     {
         data->philos[i].id = i;
-		data->philos[i].meal_count = 0;
+		data->philos[i].count = 0;
 		data->philos[i].last_meal = data->start_time;
 		data->philos[i].data = data;
 		data->philos[i].left_fork = &data->forks[i];
