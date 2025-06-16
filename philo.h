@@ -34,12 +34,12 @@ typedef struct s_data t_data;
 typedef struct s_philo
 {
 	int             id;
-	int             meal_count;
+	int             count;
 	long long       last_meal;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
-	pthread_mutex_t mael;
-	pthread_mutex_t mael_count;
+	pthread_mutex_t meal;
+	pthread_mutex_t meal_count;
 	t_data          *data;
 } t_philo;
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	int             ttd;
 	int             tte;
 	int             tts;
+	pthread_mutex_t stop_mutex; 
 	int             n_o_t_e_ph_m_e;
 	int             stop;
 	long long       start_time;
@@ -56,8 +57,8 @@ typedef struct s_data
 	pthread_t       *threads;
 	pthread_mutex_t *forks;
 	pthread_mutex_t print_mutex;
+	pthread_mutex_t death_mutex;
 } t_data;
-
 
 
 int	ft_atoi(char *nptr);
@@ -68,6 +69,6 @@ void smart_sleep(long long duration, t_data *data);
 void print_status(t_data *data, int id, char *status);
 long long get_time_ms(void);
 int init_mutex(t_data *a);
-
+void ft_usleep(long ms, t_data *data);
 
 #endif
